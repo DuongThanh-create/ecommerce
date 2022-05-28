@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<header th:insert="base.html :: headerfiles"> </header>
+<body>
+    <nav th:insert="base.html ::navigation"></nav>
+    <div class="container">
+        <div id="content">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <img th:src="@{${p.image}}" class="card-img-top img-fluid">
+                        </div> <!-- /.card -->
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h2 class="my-4">
+                                <a th:href="@{/}" class="list-group-item">Tất cả</a>
+                                <th:block th:each="item : ${categorys}">
+                                    <a th:href="@{'/product/'+${item.id}}" class="list-group-item" th:text="${item.name}"></a>
+                                </th:block>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title" th:text="${p.name}"></h3>
+                            <h4 th:text="${p.price}+' $'"></h4>
+                            <p class="card-text" th:text="${p.shortDescription}"></p>
+                            <div class="card-footer text-center">
+                                <small class="text-muted form-group " >
+                                    <a th:href="@{'/cart/add?id='+${p.id}}" class="btn btn-primary">Thêm vào giỏ</a>
+                                    <a href="#" class="btn btn-default">Yêu thích</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+
+
+

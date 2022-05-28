@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<header th:insert="base.html :: headerfiles"> </header>
+<body>
+  <nav th:insert="base.html ::navigation"></nav>
+  <div class="container">
+    <div id="content">
+      <div class="row">
+        <div class="col-lg-3">
+
+          <h3 class="my-4">Danh mục</h3>
+          <div class="list-group">
+
+            <a th:href="@{/}" class="list-group-item">Tất cả</a>
+            <th:block th:each="item : ${categorys}">
+              <a th:href="@{'/product/'+${item.id}}" class="list-group-item" th:text="${item.name}"></a>
+            </th:block>
+
+
+          </div>
+
+          <h3 class="my-4">Tìm kiếm sản phẩm</h3>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <form action="#" method="post">
+
+                <div class="input-group">
+                  <input type="text" name="key" class="form-control" placeholder="Tìm kiếm theo tên..." required>
+                  <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">Tìm</button>
+            </span>
+                </div><!-- /input-group -->
+              </form>
+            </div><!-- /.col-lg-12 -->
+          </div><!-- /.row -->
+        </div><!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+          <div class="row">
+
+            <th:block th:each="p : ${products}">
+              <div class="col-lg-4 col-md-6 mb-4">
+
+                <div class="card h-100">
+                  <div class="thumbnail">
+                    <a th:href="@{'/product/detail?id='+${p.id}}">
+                      <img class="card-img-top" th:src="@{${p.image}}" style="width: 300px;height: 300px">
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a th:href="@{'/product/detail?id='+${p.id}}" th:text="${p.name}"></a>
+                    </h4>
+                    <h5 th:text="${p.price} + '$'">5 $</h5>
+                    <h5 style="line-height: 1.5em;height: 6em;overflow: hidden;" th:text="${p.shortDescription}"></h5>
+                  </div>
+                  <div class="card-footer text-center">
+                    <small class="text-muted">
+                      <a th:href="@{'/cart/add?id='+${p.id}}" class="btn btn-primary">Thêm vào giỏ</a>
+                      <a href="#" class="btn btn-default">Yêu thích</a>
+                    </small>
+                  </div>
+
+                </div>
+
+              </div>
+            </th:block>
+
+          </div><!-- /.row -->
+        </div><!-- /.col-lg-9 -->
+      </div>
+      <th:block th:if="${kt == 1}">
+
+          <div class="row">
+            <div class="col-md-12 text-center">
+
+              <div class="pag_area">
+                <ul class="pagination">
+                  <li class="disabled"><span><<</span></li>
+                  <th:block th:each="t : ${total}">
+                    <th:block th:each="item : ${#numbers.sequence(1,t)}">
+                      <th:block th:if="item == ${page}">
+                        <li class="active"><a th:href="@{'/?pagenumber='+(${item}-1)+'&number=6'}" th:text="${item}"></a></li>
+                      </th:block>
+                      <th:block th:if="item != ${page}">
+                        <li><a th:href="@{'/?pagenumber='+(${item}-1)+'&number=6'}" th:text="${item}"></a></li>
+                      </th:block>
+                    </th:block>
+                  </th:block>
+
+                  <li class="disabled"><span>>></span></li>
+
+                </ul>
+              </div>
+
+            </div>
+          </div>
+
+      </th:block>
+    </div>
+  </div>
+</body>
+
+
+
+
+<!-- /.row -->
+
+

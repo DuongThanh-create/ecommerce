@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<header th:insert="base.html :: headerfiles"> </header>
+<style>
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  th, td {
+    text-align: center;
+    padding: 16px;
+  }
+
+  #myTable tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #myTable tr.header, #myTable tr:hover {
+    background-color: #ccc;
+  }
+</style>
+<body>
+  <nav th:insert="base.html ::navigation"></nav>
+  <div class="container">
+    <div id="content">
+      <table id="myTable">
+        <tr class="header">
+          <th>Ngày đặt đơn</th>
+          <th>Địa chỉ</th>
+          <th>Tổng tiền</th>
+          <th>Hình thức thanh toán</th>
+          <th>Phương thức giao hàng</th>
+          <th>Tiền giao hàng</th>
+        </tr>
+
+
+        <th:block th:each="order : ${orders}">
+          <tr>
+            <td th:text="${order.orderdate}"></td>
+            <td th:text="${order.cart.user.address}"></td>
+            <td th:text="${order.cart.total}"></td>
+            <td th:text="${order.payment.name}"></td>
+            <td th:text="${order.shipment.name}"></td>
+            <td th:text="${order.shipment.price}+' $'"></td>
+          </tr>
+        </th:block>
+
+
+      </table>
+    </div>
+  </div>
+
+</body>
